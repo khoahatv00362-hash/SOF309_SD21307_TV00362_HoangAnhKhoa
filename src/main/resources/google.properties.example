@@ -1,0 +1,7 @@
+google.clientId=YOUR_GOOGLE_CLIENT_ID
+google.clientSecret=YOUR_GOOGLE_CLIENT_SECRET
+google.redirectUri=YOUR_GOOGLE_REDIRECT_URI
+google.authUri=https://accounts.google.com/o/oauth2/v2/auth
+google.tokenUri=https://oauth2.googleapis.com/token
+google.userInfoUri=https://openidconnect.googleapis.com/v1/userinfo
+google.scope=openid email profile

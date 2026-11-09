@@ -16,7 +16,6 @@ public class SampleControllerTest {
     @Test
     @DisplayName("TC_AUTH_01: Kiểm tra đăng nhập với thông tin hợp lệ")
     public void testLoginSuccess() {
-        // Giả lập logic kiểm tra đăng nhập
         String username = "admin";
         String password = "123";
         
@@ -34,9 +33,41 @@ public class SampleControllerTest {
         assertFalse(isValidUser, "Đăng nhập phải thất bại khi mật khẩu trống");
     }
 
+    @Test
+    @DisplayName("TC_AUTH_03: Kiểm tra đăng nhập thất bại khi để trống tên đăng nhập")
+    public void testLoginEmptyUsername() {
+        String username = "";
+        String password = "123";
+
+        boolean isValidUser = authenticate(username, password);
+        assertFalse(isValidUser, "Đăng nhập phải thất bại khi username trống");
+    }
+
+    @Test
+    @DisplayName("TC_AUTH_04: Kiểm tra đăng nhập thất bại khi sai mật khẩu")
+    public void testLoginWrongPassword() {
+        String username = "admin";
+        String password = "wrong_password";
+
+        boolean isValidUser = authenticate(username, password);
+        assertFalse(isValidUser, "Đăng nhập phải thất bại khi mật khẩu sai");
+    }
+
+    @Test
+    @DisplayName("TC_AUTH_05: Kiểm tra tài khoản không tồn tại trong hệ thống")
+    public void testLoginNonExistentUser() {
+        String username = "unknown_user@example.com";
+        String password = "123";
+
+        boolean isValidUser = authenticate(username, password);
+        assertFalse(isValidUser, "Đăng nhập phải thất bại khi người dùng không tồn tại");
+    }
+
     // Hàm giả lập (Sinh viên thay bằng gọi trực tiếp Controller / Service của dự án web)
     private boolean authenticate(String user, String pass) {
+        if (user == null || user.trim().isEmpty() || pass == null || pass.trim().isEmpty()) {
+            return false;
+        }
         return "admin".equals(user) && "123".equals(pass);
     }
 }
-
